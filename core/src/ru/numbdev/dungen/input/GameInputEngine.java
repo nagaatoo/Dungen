@@ -60,10 +60,8 @@ public class GameInputEngine implements InputProcessor {
 
         int screenX = touchedX;
         int screenY = touchedY;
-        System.out.println("Touched: " + touchedX + "    " + touchedY + " Rectangle: " + controller.getBoundingRectangle().toString());
         if (controller.isTouched(touchedX, touchedY)) {
-            System.out.println("Is touched!");
-            camera.position.set(player.getX(), player.getY(), 0);
+            camera.position.set(player.getOriginX(), player.getOriginY(), 0);
         } else {
             if (touchedPosition == null) {
                 touchedPosition = new Vector2(screenX, screenY);

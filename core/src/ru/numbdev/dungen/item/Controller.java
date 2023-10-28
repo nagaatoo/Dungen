@@ -1,5 +1,6 @@
 package ru.numbdev.dungen.item;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -20,10 +21,6 @@ public class Controller extends Sprite {
         this.camera = camera;
     }
 
-    public Controller(int xPos, int yPos) {
-        super(img, xPos, yPos, 50, 50);
-    }
-
     public void calculatePosOnScreen() {
         float xPos = camera.position.x + (camera.viewportWidth / 2) - img.getWidth() - indent;
         float yPos = camera.position.y - (camera.viewportHeight / 2) + img.getHeight() + indent;
@@ -32,11 +29,14 @@ public class Controller extends Sprite {
     }
 
     public boolean isTouched(float x, float y) {
-        float hX = img.getWidth() / 2;
-        float hY = img.getHeight() / 2;
-        boolean onX = x <= this.posXonScreen + hX || x >= this.posXonScreen - hX;
-        boolean onY = y <= this.posYonScreen + hY || y >= this.posYonScreen - hY;
-//        return onX && onY;
-        return false;
+        float hX = img.getWidth();
+        float hY = img.getHeight();
+        float radius = img.getWidth() / 2;
+
+        // Center of controller
+        float xPos = Gdx.graphics.getWidth() - getOriginX() - indent;
+        float yPos = Gdx.graphics.getHeight() - getOriginY() - indent;
+
+        return Math.sqrt(Math.pow((x - xPos) + indent*2, 2) + Math.pow((y - yPos) + indent*2, 2)) < radius;
     }
 }
