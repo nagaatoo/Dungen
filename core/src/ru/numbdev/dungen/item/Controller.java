@@ -1,6 +1,5 @@
 package ru.numbdev.dungen.item;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -29,12 +28,15 @@ public class Controller extends Sprite {
         float xPos = camera.position.x + (camera.viewportWidth / 2) - img.getWidth() - indent;
         float yPos = camera.position.y - (camera.viewportHeight / 2) + img.getHeight() + indent;
 
-
-        this.setPosition(xPos - (img.getWidth() / 2), yPos - (img.getHeight() / 2));
+        this.setPosition(posXonScreen = xPos - (img.getWidth() / 2), posYonScreen = yPos - (img.getHeight() / 2));
     }
 
     public boolean isTouched(float x, float y) {
-        return true;
-//        return this.x <= x && this.x + img.getWidth() >= x && this.y <= y && this.y + img.getHeight()  >= y;
+        float hX = img.getWidth() / 2;
+        float hY = img.getHeight() / 2;
+        boolean onX = x <= this.posXonScreen + hX || x >= this.posXonScreen - hX;
+        boolean onY = y <= this.posYonScreen + hY || y >= this.posYonScreen - hY;
+//        return onX && onY;
+        return false;
     }
 }
