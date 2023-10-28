@@ -37,6 +37,9 @@ public class MainGameScreen implements DungeonScreen {
         controller = new Controller(cam);
         inputEngine = new GameInputEngine(cam, controller, player);
 
+        Player test = new Player();
+        test.setPosition(300, 300);
+        actorElements.add(test);
         actorElements.add(player);
         controlElements.add(controller);
     }

@@ -10,6 +10,7 @@ import ru.numbdev.dungen.item.Player;
 public class GameInputEngine implements InputProcessor {
 
     private Vector2 touchedPosition = null;
+    private boolean isTouchedController = false;
 
     private final ViewCamera camera;
     private final Controller controller;
@@ -44,6 +45,8 @@ public class GameInputEngine implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         touchedPosition = null;
+        isTouchedController = false;
+        controller.clearDirection();
         return false;
     }
 
@@ -58,22 +61,22 @@ public class GameInputEngine implements InputProcessor {
             return false;
         }
 
-        int screenX = touchedX;
-        int screenY = touchedY;
-        if (controller.isTouched(touchedX, touchedY)) {
-            camera.position.set(player.getOriginX(), player.getOriginY(), 0);
+        if (controller.isTouched(touchedX, touchedY) || isTouchedController) {
+            isTouchedController = true;
+            touchedPosition = new Vector2(touchedX, touchedY);
+            player.movePlayer(controller.getDirection(touchedPosition));
+            camera.position.set(player.getCenterX(), player.getCenterY(), 0);
         } else {
             if (touchedPosition == null) {
-                touchedPosition = new Vector2(screenX, screenY);
+                touchedPosition = new Vector2(touchedX, touchedY);
             } else {
-
-                float deltaX = screenX - touchedPosition.x;
-                float deltaY = screenY - touchedPosition.y;
+                float deltaX = touchedX - touchedPosition.x;
+                float deltaY = touchedY - touchedPosition.y;
 
                 float newX = camera.position.x - deltaX;
                 float newY = camera.position.y + deltaY;
                 camera.position.set(newX, newY, 0);
-                touchedPosition = new Vector2(screenX, screenY);
+                touchedPosition = new Vector2(touchedX, touchedY);
             }
         }
         return true;
