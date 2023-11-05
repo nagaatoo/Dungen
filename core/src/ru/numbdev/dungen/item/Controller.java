@@ -17,7 +17,7 @@ public class Controller extends Sprite {
     private final ViewCamera camera;
 
     private Vector2 previous = null;
-    private Pair previousDifferent = Pair.of(0, 0);
+    private Pair previousVector = Pair.of(0, 0);
 
     public Controller(ViewCamera camera) {
         super(IMG);
@@ -46,37 +46,43 @@ public class Controller extends Sprite {
         float y = 0;
 
          if (previous != null) {
-             // TODO запоминание движения не работает - допчинить
              if (previous.equals(touched)) {
-                 x = previousDifferent.getX();
-                 y = previousDifferent.getY();
+                 x = previousVector.getX() * 2;
+                 y = previousVector.getY() * 2;
              } else {
+                 float prevX = 0;
+                 float prevY = 0;
                  if (touched.y > previous.y) {
                      y -= STEP;
+                     prevY -= STEP;
                  }
 
                  if (touched.y <= previous.y) {
                      y += STEP;
+                     prevY += STEP;
                  }
 
                  if (touched.x < previous.x) {
                      x -= STEP;
+                     prevX -= STEP;
                  }
 
                  if (touched.x >= previous.x) {
                      x += STEP;
+                     prevX += STEP;
                  }
 
-                 previousDifferent = Pair.of(touched.x - previous.x, touched.y - previous.y);
+                 previousVector = Pair.of(prevX, prevY);
              }
         }
 
         previous = touched;
+        System.out.println(previousVector.toString());
         return Pair.of(x, y);
     }
 
     public void clearDirection() {
         previous = null;
-        previousDifferent = Pair.of(0, 0);
+        previousVector = Pair.of(0, 0);
     }
 }

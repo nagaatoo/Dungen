@@ -21,4 +21,12 @@ public class Pair {
     public float getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return "Pair{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
