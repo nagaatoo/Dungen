@@ -47,8 +47,9 @@ public class Controller extends Sprite {
 
          if (previous != null) {
              if (previous.equals(touched)) {
-                 x = previousVector.getX() * 2;
-                 y = previousVector.getY() * 2;
+                 // TODO костыль - переделать
+                 x = previousVector.getX() * 4;
+                 y = previousVector.getY() * 4;
              } else {
                  float prevX = 0;
                  float prevY = 0;
