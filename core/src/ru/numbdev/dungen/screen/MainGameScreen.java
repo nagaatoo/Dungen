@@ -3,8 +3,6 @@ package ru.numbdev.dungen.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -14,14 +12,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import ru.numbdev.dungen.Dungen;
+import ru.numbdev.dungen.element.ViewCamera;
 import ru.numbdev.dungen.enums.Screens;
 import ru.numbdev.dungen.input.GameInputEngine;
-import ru.numbdev.dungen.element.ViewCamera;
 import ru.numbdev.dungen.item.Player;
 
 public class MainGameScreen implements DungeonScreen {
@@ -30,23 +27,15 @@ public class MainGameScreen implements DungeonScreen {
 
     private GameInputEngine inputEngine;
 
-    private final List<Actor> actorElements = new ArrayList<>();
-    private final List<Sprite> gameplayElements = new ArrayList<>();
-    private final List<Sprite> controlElements = new ArrayList<>();
-    private Player player;
+    private final Player player;
 
     private Stage stage;
     private Skin skin;
 
     public MainGameScreen(Dungen game) {
         this.game = game;
-//        player = new Player();
+        player = new Player();
 //        inputEngine = new GameInputEngine(player);
-//
-//        Player test = new Player();
-//        test.setPosition(300, 300);
-//        actorElements.add(test);
-//        actorElements.add(player);
     }
 
     @Override
@@ -56,30 +45,21 @@ public class MainGameScreen implements DungeonScreen {
 
         stage.act();
         stage.draw();
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        game.batch.begin();
 
-//        for(Actor actor : actorElements) {
-//            actor.draw(game.batch, 0);
-//        }
-//        for (Sprite element : gameplayElements) {
-//            element.draw(game.batch);
-//        }
-//        for (Sprite element : controlElements) {
-//            element.draw(game.batch);
-//        }
-//        game.batch.end();
+        game.batch.begin();
+        player.draw(game.batch, 0);
+        game.batch.end();
     }
 
     @Override
     public void show() {
-        stage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
+        Viewport viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new ViewCamera());
+        stage = new Stage(viewport);
 
         Gdx.input.setInputProcessor(stage);
-        skin = new Skin(Gdx.files.internal("data/skins/skin.json"));
+//        skin = new Skin(Gdx.files.internal("badlogic.jpg"));
 
-        buildMenu();
+//        buildMenu();
     }
 
     private void buildMenu(){

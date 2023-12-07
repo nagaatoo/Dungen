@@ -3,7 +3,6 @@ package ru.numbdev.dungen.input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.numbdev.dungen.element.ViewCamera;
 import ru.numbdev.dungen.item.Player;
 
 public class GameInputEngine implements InputProcessor {
