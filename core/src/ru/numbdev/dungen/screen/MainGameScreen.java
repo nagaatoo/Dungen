@@ -3,6 +3,8 @@ package ru.numbdev.dungen.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -57,9 +60,9 @@ public class MainGameScreen implements DungeonScreen {
         stage = new Stage(viewport);
 
         Gdx.input.setInputProcessor(stage);
-//        skin = new Skin(Gdx.files.internal("badlogic.jpg"));
+        skin = new Skin();
 
-//        buildMenu();
+        buildMenu();
     }
 
     private void buildMenu(){
@@ -67,33 +70,23 @@ public class MainGameScreen implements DungeonScreen {
         menuTable.setPosition(0, 0);
         menuTable.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         menuTable.align(Align.top);
+        menuTable.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         stage.addActor(menuTable);
 
-        Texture texture = new Texture(Gdx.files.internal("data/ubuntulogo.png"));
+        Texture texture = new Texture(Gdx.files.internal("controller.png"));
         Image image = new Image(texture);
 
-        //first option
-        image.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //your action on click
-            }
-        });
-        menuTable.add(image);
-
-        //second option
-        ImageButton imageButton = new ImageButton(image.getDrawable());
-        imageButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //your action on click
-            }
-        });
-        menuTable.add(imageButton);
-
-        //third option
-        Button button = new Button(skin);
+        TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/button.pack"));
+        skin.addRegions(buttonAtlas);
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = skin.getDrawable("buttonnormal");
+        buttonStyle.down = skin.getDrawable("buttonpressed");
+        buttonStyle.pressedOffsetX = 1;
+        buttonStyle.pressedOffsetY = -1;
+        buttonStyle.font = new BitmapFont(Gdx.files.internal("bitmapfont/Amble-Regular-26.fnt"));
+        Button button = new TextButton("Push", buttonStyle);
+        button.pad(20);
         button.add(image);
         button.addListener(new ClickListener(){
             @Override
