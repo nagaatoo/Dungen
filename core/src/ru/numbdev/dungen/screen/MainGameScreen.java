@@ -1,19 +1,18 @@
 package ru.numbdev.dungen.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -34,6 +33,7 @@ public class MainGameScreen implements DungeonScreen {
 
     private Stage stage;
     private Skin skin;
+    private BitmapFont defaultFont = new BitmapFont(Gdx.files.internal("bitmapfont/Amble-Regular-26.fnt"));
 
     public MainGameScreen(Dungen game) {
         this.game = game;
@@ -60,42 +60,63 @@ public class MainGameScreen implements DungeonScreen {
         stage = new Stage(viewport);
 
         Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-
+        skin = new Skin(Gdx.files.internal("test.json"));
+        TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("test.atlas"));
+        skin.addRegions(buttonAtlas);
         buildMenu();
     }
 
     private void buildMenu(){
-        Table menuTable = new Table(skin);
-        menuTable.setPosition(0, 0);
-        menuTable.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        menuTable.align(Align.top);
-        menuTable.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+        float cWidth = width * 0.7f;
+        float cHeight = height * 0.5f;
 
-        stage.addActor(menuTable);
+        Container<Table> container = new Container<>();
+        container.setSize(cWidth, cHeight);
+        container.setPosition((width - cWidth) / 2.0f, (height - cHeight) / 2.0f);
+        container.fillX();
 
-        Texture texture = new Texture(Gdx.files.internal("controller.png"));
-        Image image = new Image(texture);
+        Table table = new Table(skin);
 
-        TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/button.pack"));
-        skin.addRegions(buttonAtlas);
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = skin.getDrawable("buttonnormal");
-        buttonStyle.down = skin.getDrawable("buttonpressed");
-        buttonStyle.pressedOffsetX = 1;
-        buttonStyle.pressedOffsetY = -1;
-        buttonStyle.font = new BitmapFont(Gdx.files.internal("bitmapfont/Amble-Regular-26.fnt"));
-        Button button = new TextButton("Push", buttonStyle);
-        button.pad(20);
-        button.add(image);
-        button.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //your action on click
-            }
-        });
-        menuTable.add(button);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(defaultFont, Color.WHITE);
+        Label topLabel = new Label("A LABEL", labelStyle);
+        topLabel.setAlignment(Align.center);
+        Slider slider = new Slider(0, 100, 1, false, skin);
+        Label anotherLabel = new Label("ANOTHER LABEL", skin);
+        anotherLabel.setAlignment(Align.center);
 
+        CheckBox checkBoxA = new CheckBox("Checkbox Left", skin);
+        CheckBox checkBoxB = new CheckBox("Checkbox Center", skin);
+        CheckBox checkBoxC = new CheckBox("Checkbox Right", skin);
+
+        Table buttonTable = new Table(skin);
+
+        TextButton buttonA = new TextButton("LEFT", skin);
+        TextButton buttonB = new TextButton("RIGHT", skin);
+
+        table.row().colspan(3).expandX().fillX();
+        table.add(topLabel).fillX();
+        table.row().colspan(3).expandX().fillX();
+        table.add(slider).fillX();
+        table.row().colspan(3).expandX().fillX();
+        table.add(anotherLabel).fillX();
+        table.row().expandX().fillX();
+
+        table.add(checkBoxA).expandX().fillX();
+        table.add(checkBoxB).expandX().fillX();
+        table.add(checkBoxC).expandX().fillX();
+        table.row().expandX().fillX();;
+
+        table.add(buttonTable).colspan(3);
+
+        buttonTable.pad(16);
+        buttonTable.row().fillX().expandX();
+        buttonTable.add(buttonA).width(cWidth/3.0f);
+        buttonTable.add(buttonB).width(cWidth/3.0f);
+
+        container.setActor(table);
+        stage.addActor(container);
     }
 
     @Override

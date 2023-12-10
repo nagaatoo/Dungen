@@ -3,6 +3,14 @@ controller.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+default
+  rotate: false
+  xy: 1, 1
+  size: 16, 16
+  split: 6, 8, 7, 7
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 buttonnormal
   rotate: false
   xy: 1, 1
