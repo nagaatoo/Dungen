@@ -22,8 +22,8 @@ public class Player extends AbstractElement {
         super();
         this.setColor(Color.BLUE);
         this.setName("Player");
-        this.setHeight(Gdx.graphics.getHeight() - 300);
-        this.setWidth(200);
+//        this.setHeight(Gdx.graphics.getHeight() - 300);
+//        this.setWidth(200);
 //        this.sprite = new Sprite(img);
 //        this.setTouchable(Touchable.enabled);
 //        this.setBounds(this.sprite.getX(), this.sprite.getY(), this.sprite.getWidth(), this.sprite.getHeight());

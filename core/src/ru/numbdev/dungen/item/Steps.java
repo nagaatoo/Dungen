@@ -9,7 +9,7 @@ public class Steps extends AbstractElement {
         super();
         this.setColor(Color.YELLOW);
         this.setName("Steps");
-        this.setHeight(Gdx.graphics.getHeight() - 300);
-        this.setWidth(100);
+//        this.setHeight(Gdx.graphics.getHeight() - 300);
+        this.setWidth(200);
     }
 }
