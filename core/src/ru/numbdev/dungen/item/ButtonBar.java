@@ -8,12 +8,10 @@ import com.badlogic.gdx.utils.Align;
 
 public class ButtonBar extends AbstractElement {
 
-    private final Skin skin;
     private final Table play = new Table();
 
     public ButtonBar(Skin skin) {
-        super();
-        this.skin = skin;
+        super(skin);
         this.setColor(Color.BROWN);
         this.setHeight(180);
 

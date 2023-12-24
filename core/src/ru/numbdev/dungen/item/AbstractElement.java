@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public abstract class AbstractElement extends Group {
 
-    public AbstractElement() {
+    protected final Skin skin;
+
+    public AbstractElement(Skin skin) {
+        this.skin = skin;
 //        this.setBounds(300, 300, 200, 200);
 //        this.setSize(300, 300);
     }

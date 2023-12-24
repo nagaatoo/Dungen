@@ -65,10 +65,11 @@ public class MainGameScreen implements DungeonScreen {
     }
 
     private void buildMenu(){
-        AbstractElement player = new Player();
-        AbstractElement steps = new Steps();
-        AbstractElement enemy = new Enemy();
+        AbstractElement player = new Player(skin);
+        AbstractElement steps = new Steps(skin);
+        AbstractElement enemy = new Enemy(skin);
         AbstractElement buttonBar = new ButtonBar(skin);
+
         buttonBar.setElementDebug(true);
         player.setElementDebug(true);
         steps.setElementDebug(true);
