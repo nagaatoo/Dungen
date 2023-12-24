@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
@@ -21,7 +22,11 @@ import ru.numbdev.dungen.Dungen;
 import ru.numbdev.dungen.element.ViewCamera;
 import ru.numbdev.dungen.enums.Screens;
 import ru.numbdev.dungen.input.GameInputEngine;
+import ru.numbdev.dungen.item.Avatar;
+import ru.numbdev.dungen.item.ButtonBar;
+import ru.numbdev.dungen.item.Enemy;
 import ru.numbdev.dungen.item.Player;
+import ru.numbdev.dungen.item.Steps;
 
 public class MainGameScreen implements DungeonScreen {
 
@@ -43,15 +48,15 @@ public class MainGameScreen implements DungeonScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0.2f,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor( 0, 0, 0, 0 );
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         stage.act();
         stage.draw();
 
-        game.batch.begin();
-        player.draw(game.batch, 0);
-        game.batch.end();
+//        game.batch.begin();
+//        player.draw(game.batch, 0);
+//        game.batch.end();
     }
 
     @Override
@@ -73,50 +78,68 @@ public class MainGameScreen implements DungeonScreen {
         float cHeight = height * 0.5f;
 
         Container<Table> container = new Container<>();
+        container.setName("container");
         container.setSize(cWidth, cHeight);
         container.setPosition((width - cWidth) / 2.0f, (height - cHeight) / 2.0f);
         container.fillX();
+        container.fillY();
 
         Table table = new Table(skin);
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle(defaultFont, Color.WHITE);
-        Label topLabel = new Label("A LABEL", labelStyle);
-        topLabel.setAlignment(Align.center);
-        Slider slider = new Slider(0, 100, 1, false, skin);
-        Label anotherLabel = new Label("ANOTHER LABEL", skin);
-        anotherLabel.setAlignment(Align.center);
-
-        CheckBox checkBoxA = new CheckBox("Checkbox Left", skin);
-        CheckBox checkBoxB = new CheckBox("Checkbox Center", skin);
-        CheckBox checkBoxC = new CheckBox("Checkbox Right", skin);
-
-        Table buttonTable = new Table(skin);
-
-        TextButton buttonA = new TextButton("LEFT", skin);
-        TextButton buttonB = new TextButton("RIGHT", skin);
+        table.setFillParent(true);
+        table.setDebug(true);
 
         table.row().colspan(3).expandX().fillX();
-        table.add(topLabel).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(slider).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(anotherLabel).fillX();
-        table.row().expandX().fillX();
+        table.add(new Player()).fillX();
+        table.add(new Steps()).fillX();
+        table.add(new Enemy()).fillX();
+        table.row().center();
+        table.pack();
 
-        table.add(checkBoxA).expandX().fillX();
-        table.add(checkBoxB).expandX().fillX();
-        table.add(checkBoxC).expandX().fillX();
-        table.row().expandX().fillX();;
+//        Table buttonTable = new Table();
+//        buttonTable.pad(16).row().fillX().expandX();
+//        buttonTable.add(new ButtonBar());
+//        table.add(buttonTable);
 
-        table.add(buttonTable).colspan(3);
+//        Label.LabelStyle labelStyle = new Label.LabelStyle(defaultFont, Color.WHITE);
+//        Label topLabel = new Label("A LABEL", labelStyle);
+//        topLabel.setAlignment(Align.center);
+//        Slider slider = new Slider(0, 100, 1, false, skin);
+//        Label anotherLabel = new Label("ANOTHER LABEL", skin);
+//        anotherLabel.setAlignment(Align.center);
+//
+//        CheckBox checkBoxA = new CheckBox("Checkbox Left", skin);
+//        CheckBox checkBoxB = new CheckBox("Checkbox Center", skin);
+//        CheckBox checkBoxC = new CheckBox("Checkbox Right", skin);
+//
+//        Table buttonTable = new Table(skin);
+//
+//        TextButton buttonA = new TextButton("LEFT", skin);
+//        TextButton buttonB = new TextButton("RIGHT", skin);
+//
+//        table.row().colspan(3).expandX().fillX();
+//        table.add(topLabel).fillX();
+//        table.row().colspan(3).expandX().fillX();
+//        table.add(slider).fillX();
+//        table.row().colspan(3).expandX().fillX();
+//        table.add(anotherLabel).fillX();
+//        table.row().expandX().fillX();
+//
+//        table.add(checkBoxA).expandX().fillX();
+//        table.add(checkBoxB).expandX().fillX();
+//        table.add(checkBoxC).expandX().fillX();
+//        table.row().expandX().fillX();
+//
+//        table.add(buttonTable).colspan(3);
+//
+//        buttonTable.pad(16);
+//        buttonTable.row().fillX().expandX();
+//        buttonTable.add(buttonA).width(cWidth/3.0f);
+//        buttonTable.add(buttonB).width(cWidth/3.0f);
 
-        buttonTable.pad(16);
-        buttonTable.row().fillX().expandX();
-        buttonTable.add(buttonA).width(cWidth/3.0f);
-        buttonTable.add(buttonB).width(cWidth/3.0f);
-
-        container.setActor(table);
-        stage.addActor(container);
+//        container.setActor(table);
+//        stage.addActor(container);
+        stage.addActor(table);
+//        stage.setDebugAll(true);
     }
 
     @Override
