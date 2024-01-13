@@ -61,10 +61,10 @@ public class MainGameScreen implements DungeonScreen {
         skin = new Skin(Gdx.files.internal("test.json"));
         TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("test.atlas"));
         skin.addRegions(buttonAtlas);
-        buildMenu();
+        buildBattleField();
     }
 
-    private void buildMenu(){
+    private void buildBattleField() {
         AbstractElement player = new Player(skin);
         AbstractElement steps = new Steps(skin);
         AbstractElement enemy = new Enemy(skin);
@@ -79,7 +79,7 @@ public class MainGameScreen implements DungeonScreen {
         table.defaults().pad(10F);
         table.setFillParent(true);
 
-        table.add(new Label("PLAYER",skin)).expand();
+        table.add(player).expand();
         table.add(steps);
         table.add(new Label("ENEMY",skin)).expand();
         table.row();

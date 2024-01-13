@@ -7,6 +7,32 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		flip: false
 	}
 }
+com.badlogic.gdx.graphics.Color: {
+	RGBA_150_1_1_255: {
+		r: 0.5882353
+		g: 0.003921569
+		b: 0.003921569
+		a: 1
+	}
+	RGBA_16_185_0_255: {
+		r: 0.0627451
+		g: 0.7254902
+		b: 0
+		a: 1
+	}
+	RGBA_255_0_0_255: {
+		r: 1
+		g: 0
+		b: 0
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	px: {
+		name: white-pixel
+		color: RGBA_16_185_0_255
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
 		up: controller
@@ -20,9 +46,40 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		font: Amble-Regular-26
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: Amble-Regular-26
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
 		font: Amble-Regular-26
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: Amble-Regular-26
+		fontColorSelected: RGBA_255_0_0_255
+		fontColorUnselected: RGBA_150_1_1_255
+		selection: controller
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: px
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		background: controller
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: Amble-Regular-26
+		fontColor: RGBA_16_185_0_255
+		scrollStyle: default
+		listStyle: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
@@ -33,15 +90,31 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 		background: controller
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
+	default-horizontal: {
+		handle: controller
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		parent: default
 		font: Amble-Regular-26
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: Amble-Regular-26
+		fontColor: RGBA_16_185_0_255
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		titleFont: Amble-Regular-26
 	}
 }
 }

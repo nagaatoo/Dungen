@@ -5,12 +5,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-public class Enemy extends AbstractElement {
+public class Enemy extends AbstractElement implements Players {
 
     public Enemy(Skin skin) {
         super(skin);
         this.setColor(Color.RED);
-//        this.setHeight(Gdx.graphics.getHeight() - 300);
-//        this.setWidth(100);
+    }
+
+    @Override
+    public void prepareAction() {
+
+    }
+
+    @Override
+    public void action() {
+
     }
 }
